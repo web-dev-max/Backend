@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsModule } from './modules/products/products.module';
 import { HttpModule } from '@nestjs/axios';
+import { ImportModule } from './modules/import/import.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { HttpModule } from '@nestjs/axios';
     }),
     ProductsModule,
     HttpModule.register({}),
+    ImportModule,
   ],
   controllers: [AppController],
   providers: [AppService],
