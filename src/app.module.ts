@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
 import { ProductsModule } from './modules/products/products.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ProductsModule } from './modules/products/products.module';
       logging: true,
     }),
     ProductsModule,
+    HttpModule.register({}),
   ],
   controllers: [AppController],
   providers: [AppService],
