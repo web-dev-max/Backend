@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ProductsModule } from './modules/products/products.module';
-import { HttpModule } from '@nestjs/axios';
 import { ImportModule } from './modules/import/import.module';
+import { Product } from './models/products.model';
 
 @Module({
   imports: [
@@ -20,16 +18,14 @@ import { ImportModule } from './modules/import/import.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [__dirname + '/src/models/*.model{.ts,.js}'],
-      migrations: [__dirname + '/migration/*{.ts,.js}'],
+      entities: [Product],
       synchronize: false,
       logging: true,
     }),
     ProductsModule,
-    HttpModule.register({}),
     ImportModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

@@ -11,8 +11,7 @@ export default new DataSource({
   username: process.env.DB_USER || 'your_username',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'your_database',
-  entities: [path.join(__dirname, '../dist/models/*.model.js')],
+  entities: [path.join(__dirname, '/src/models/*.model.ts')],
   migrations: [path.join(__dirname, '/migration/*{.ts,.js}')],
-  synchronize: false,
   logging: true,
 });

@@ -1,31 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { catchError, lastValueFrom } from 'rxjs';
+import { IProduct } from '../../common/interface/product.interface';
+import { AxiosError, AxiosResponse } from 'axios';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from 'src/models/products.model';
-import { IProduct } from '../../common/product.interface';
-import { AxiosError, AxiosResponse } from 'axios';
 
 @Injectable()
 export class ImportService {
   constructor(
     private readonly httpService: HttpService,
-    // @InjectRepository(Product)
-    // // private readonly productRepository: Repository<Product>,
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
   ) {}
 
   async importProducts() {
     const { data }: AxiosResponse<IProduct[]> = await lastValueFrom(
       this.httpService.get<IProduct[]>('https://fakestoreapi.com/products').pipe(
         catchError((error: AxiosError) => {
-          this.logger.error(error.response.data);
-          throw 'An error happened!';
+          console.error(error.message);
+          throw new Error('An error happened!');
         }),
       ),
     );
-
-    console.log(data);
 
     const productsToSave = data.map((productApi) => ({
       id: productApi.id,
@@ -37,9 +35,6 @@ export class ImportService {
       image: productApi.image,
     }));
 
-    // Сохраняем продукты в БД
-    // await this.productRepository.save(productsToSave);
-
-    console.log(productsToSave, 'Продукты успешно импортированы!');
+    await this.productRepository.save(productsToSave);
   }
 }
