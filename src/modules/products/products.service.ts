@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductDto } from 'src/common/dto/products.dto';
 import { plainToClass } from 'class-transformer';
+import { AllProductDto } from 'src/common/dto/all-products.dto';
 
 @Injectable()
 export class ProductsServices {
@@ -12,9 +13,9 @@ export class ProductsServices {
     private readonly RepositoryProduct: Repository<Product>,
   ) {}
 
-  async getAllProducts(): Promise<ProductDto[]> {
+  async getAllProducts(): Promise<AllProductDto[]> {
     const products = await this.RepositoryProduct.find();
-    return plainToClass(ProductDto, products, { excludeExtraneousValues: true });
+    return plainToClass(AllProductDto, products, { excludeExtraneousValues: true });
   }
 
   async getProduct(id: number): Promise<ProductDto> {
