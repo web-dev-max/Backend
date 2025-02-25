@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductDto } from 'src/common/dto/products.dto';
-import { plainToClass } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
 import { AllProductDto } from 'src/common/dto/all-products.dto';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class ProductsServices {
 
   async getAllProducts(): Promise<AllProductDto[]> {
     const products = await this.RepositoryProduct.find();
-    return plainToClass(AllProductDto, products, { excludeExtraneousValues: true });
+    return plainToInstance(AllProductDto, products, { excludeExtraneousValues: true });
   }
 
   async getProduct(id: number): Promise<ProductDto> {
@@ -23,7 +23,7 @@ export class ProductsServices {
 
     if (!product) throw new Error(`Product with id ${id} not found`);
 
-    return plainToClass(ProductDto, product, { excludeExtraneousValues: true });
+    return plainToInstance(ProductDto, product, { excludeExtraneousValues: true });
   }
 
   async saveProduct(product: Partial<Product>): Promise<Product> {
