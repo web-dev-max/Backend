@@ -1,7 +1,7 @@
 import { ProductsServices } from './products.service';
 import { Controller, Get, Param } from '@nestjs/common';
-import { AllProductDto } from 'src/common/dto/all-products.dto';
-import { ProductDto } from 'src/common/dto/products.dto';
+import { AllProductDto } from 'src/common/dto/products/all-products.dto';
+import { ProductDto } from 'src/common/dto/products/products.dto';
 
 @Controller('api')
 export class ProductsController {

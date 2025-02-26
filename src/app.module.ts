@@ -4,7 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ProductsModule } from './modules/products/products.module';
 import { ImportModule } from './modules/import/import.module';
 import { Product } from './models/products.model';
-import { UserModel } from './models/user.model';
+import { UserModel } from './models/auth.model';
 
 @Module({
   imports: [

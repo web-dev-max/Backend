@@ -2,9 +2,9 @@ import { Product } from 'src/models/products.model';
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProductDto } from 'src/common/dto/products.dto';
+import { ProductDto } from 'src/common/dto/products/products.dto';
 import { plainToInstance } from 'class-transformer';
-import { AllProductDto } from 'src/common/dto/all-products.dto';
+import { AllProductDto } from 'src/common/dto/products/all-products.dto';
 
 @Injectable()
 export class ProductsServices {

@@ -1,7 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Injectable()
+@Entity()
 export class UserModel {
   @PrimaryGeneratedColumn()
   id!: number;
